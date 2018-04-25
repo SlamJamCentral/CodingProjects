@@ -17,10 +17,11 @@
 
 using namespace std;
 
+//void botOrNot();
 int rounds();
 void drawBoard(char board2[3][3]);
-void xInput(short x);
-void oInput(short o);
+int xInput(short x);
+int oInput(short o);
 //void boardOutput(char XnO[3][3]);
 void testBoard(char board3[3][3]);
 
@@ -33,10 +34,10 @@ int main(){
     bool g = true;
     while(g != false){
       drawBoard(board);
-      xInput(x);
-      drawBoard();
-      oInput(o);
-      testBoard();
+      x = xInput();
+      drawBoard(board);
+      o = oInput();
+      testBoard(board);
     }
   }
 }
@@ -57,11 +58,25 @@ void drawBoard(char board[3][3]){
   cout << board[1][0] << " | " << board[1][1] << " | " << board[1][2] << endl;
   cout << "-----------" << endl;
   cout << board[2][0] << " | " << board[2][1] << " | " << board[2][2] << endl;
-  cout << "\n " << endl; 
+  cout << "\n " << endl;
 }
 
+int xInput(){
+  cout << "What move would you like to make for X?: " << endl;
+  cin >> x;
+  return x;
+}
 
+int oInput(){
+  cout << "What move would you like to make for O?: " << endl;
+  cin >> o;
+  return o;
+}
 
+void testBoard(char board[3][3]){
+
+  
+}
 
 
 /*
