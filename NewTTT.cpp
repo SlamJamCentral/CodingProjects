@@ -17,29 +17,59 @@
 
 using namespace std;
 
-//void botOrNot();
+int botOrNot();
 int rounds();
 void drawBoard(char board2[3][3]);
-int xInput(short x);
-int oInput(short o);
-//void boardOutput(char XnO[3][3]);
+int xInput();
+int oInput();
 void testBoard(char board3[3][3]);
+int getRand();
 
 int main(){
   short x, o;
   char board[3][3] = {{'e', 'e', 'e'}, {'e', 'e', 'e'}, {'e', 'e', 'e'}};
   int rounds = rounds();
 
-  for(x = 1; x <= rounds; x++){
-    bool g = true;
-    while(g != false){
-      drawBoard(board);
-      x = xInput();
-      drawBoard(board);
-      o = oInput();
-      testBoard(board);
+  if(botOrNot()){ //If one is a bot
+    for(x = 1; x <= rounds; x++){
+      bool g = true;
+      while(g != false){
+        drawBoard(board);
+        x = xInput();
+        drawBoard(board);
+        o = getRand();
+        testBoard(board);
+      }
     }
   }
+  else{ //If both are humans
+    for(x = 1; x <= rounds; x++){
+      bool g = true;
+      while(g != false){
+        drawBoard(board);
+        x = xInput();
+        drawBoard(board);
+        o = oInput();
+        testBoard(board);
+      }
+    }
+  }
+}
+
+bool botOrNot(){
+  short bot;
+  bool isItBot;
+  do{
+    cout << "Are you playing with 1 player or 2? (Enter '1' or '2'): ";
+    cin >> bot;
+  }while(bot != 1 || bot != 2);
+
+  if(bot == 1)
+    isItBot = true;
+  else
+    isItBot = false;
+
+  return isItBot;
 }
 
 int rounds(){
@@ -62,22 +92,32 @@ void drawBoard(char board[3][3]){
 }
 
 int xInput(){
-  cout << "What move would you like to make for X?: " << endl;
-  cin >> x;
+  do{
+    cout << "What move would you like to make for X?: " << endl;
+    cin >> x;
+  }while(x <= 9 && x >= 1);
   return x;
 }
 
 int oInput(){
-  cout << "What move would you like to make for O?: " << endl;
-  cin >> o;
+  do{
+    cout << "What move would you like to make for O?: " << endl;
+    cin >> o;
+  }while(o <= 9 && o >= 1);
   return o;
 }
 
 void testBoard(char board[3][3]){
 
-  
+
 }
 
+int getRand(){
+  srand(time(0));
+  int var = rand();
+  var %= 9;
+  return var;
+}
 
 /*
 int main(){
