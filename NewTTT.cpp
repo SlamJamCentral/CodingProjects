@@ -19,63 +19,81 @@ using namespace std;
 
 int botOrNot();
 int rounds();
-void drawBoard(char board2[3][3]);
+void drawBoard(char board[3][3]);
 int xInput();
+void xInputValidation(short xIn, char board[3][3]);
 int oInput();
-void testBoard(char board3[3][3]);
+void oInputValidation(short oIn, char board[3][3]);
+int testBoard(char board[3][3]);
 int getRand();
 
 int main(){
   short x, o;
-  char board[3][3] = {{'e', 'e', 'e'}, {'e', 'e', 'e'}, {'e', 'e', 'e'}};
-  int rounds = rounds();
+  int endG;
+  char board[3][3] = {{'7', '8', '9'}, {'4', '5', '6'}, {'1', '2', '3'}};
+  int hmRounds = rounds();
 
-  if(botOrNot()){ //If one is a bot
-    for(x = 1; x <= rounds; x++){
+  if(botOrNot() == 1){ //If one is a bot
+    for(x = 1; x <= hmRounds; x++){
       bool g = true;
       while(g != false){
         drawBoard(board);
         x = xInput();
+        xInputValidation(x, board);
+        if(endG == 1 || endG == 2){
+          g = false;
+          break;
+        }
         drawBoard(board);
         o = getRand();
-        testBoard(board);
+        oInputValidation(o, board);
+        endG = testBoard(board);
+        if(endG == 1 || endG == 2)
+          g = false;
       }
+      cout << "\nPlayer " << endG << " won!" << endl;
     }
   }
   else{ //If both are humans
-    for(x = 1; x <= rounds; x++){
+    for(x = 1; x <= hmRounds; x++){
       bool g = true;
       while(g != false){
         drawBoard(board);
         x = xInput();
+        xInputValidation(x, board);
+        endG = testBoard(board);
+        if(endG == 1 || endG == 2){ //Test to end game early
+          g = false;
+          break;
+        }
         drawBoard(board);
         o = oInput();
-        testBoard(board);
-      }
-    }
-  }
-}
+        oInputValidation(o, board);
+        endG = testBoard(board);
+        if(endG == 1 || endG == 2)
+          g = false;
+      } //Game Repeat (While Loop)
+      cout << "\nPlayer " << endG << " won!" << endl;
+    } //For Loop Trigger
+  } //Else End
+  return 0;
+} //Main End
 
-bool botOrNot(){
+int botOrNot(){
   short bot;
-  bool isItBot;
   do{
     cout << "Are you playing with 1 player or 2? (Enter '1' or '2'): ";
     cin >> bot;
-  }while(bot != 1 || bot != 2);
+  }while(bot != 1 && bot != 2);
 
-  if(bot == 1)
-    isItBot = true;
-  else
-    isItBot = false;
+  return bot;
 
-  return isItBot;
 }
 
 int rounds(){
   int rnds;
   do{
-    cout << "How many rounds do you want to play for?";
+    cout << "How many rounds do you want to play for? ";
     cin >> rnds;
   }while(rnds <= 0);
   return rnds;
@@ -92,24 +110,144 @@ void drawBoard(char board[3][3]){
 }
 
 int xInput(){
+  int x;
   do{
     cout << "What move would you like to make for X?: " << endl;
     cin >> x;
-  }while(x <= 9 && x >= 1);
+  }while(x > 9 || x < 1);
   return x;
 }
 
+void xInputValidation(short xIn, char board[3][3]){
+  if(xIn == '7')
+    board[0][0] = 'X';
+  if(xIn == '8')
+    board[0][1] = 'X';
+  if(xIn == '9')
+    board[0][2] = 'X';
+
+  if(xIn == '4')
+    board[1][0] = 'X';
+  if(xIn == '5')
+    board[1][1] = 'X';
+  if(xIn == '6')
+    board[1][2] = 'X';
+
+  if(xIn == '1')
+    board[2][0] = 'X';
+  if(xIn == '2')
+    board[2][1] = 'X';
+  if(xIn == '3')
+    board[2][2] = 'X';
+}
+
 int oInput(){
+  int o;
   do{
     cout << "What move would you like to make for O?: " << endl;
     cin >> o;
-  }while(o <= 9 && o >= 1);
+  }while(o > 9 || o < 1);
   return o;
 }
 
-void testBoard(char board[3][3]){
+void oInputValidation(short oIn, char board[3][3]){
+  if(oIn == '7')
+    board[0][0] = 'O';
+  if(oIn == '8')
+    board[0][1] = 'O';
+  if(oIn == '9')
+    board[0][2] = 'O';
+
+  if(oIn == '4')
+    board[1][0] = 'O';
+  if(oIn == '5')
+    board[1][1] = 'O';
+  if(oIn == '6')
+    board[1][2] = 'O';
+
+  if(oIn == '1')
+    board[2][0] = 'O';
+  if(oIn == '2')
+    board[2][1] = 'O';
+  if(oIn == '3')
+    board[2][2] = 'O';
+}
+
+int testBoard(char board[3][3]){
+  //Down - X
+  if(board[0][0] == 'X' && board[1][0] == 'X' && board[2][0] == 'X'){
+    cout << "Player 1 (X) Wins!" << endl;
+    return 1;
+  }
+  if(board[0][1] == 'X' && board[1][1] == 'X' && board[2][1] == 'X'){
+    cout << "Player 1 (X) Wins!" << endl;
+    return 1;
+  }
+  if(board[0][2] == 'X' && board[1][2] == 'X' && board[2][2] == 'X'){
+    cout << "Player 1 (X) Wins!" << endl;
+    return 1;
+  }
+
+  //Across - X
+  if(board[0][0] == 'X' && board[0][1] == 'X' && board[0][2] == 'X'){
+    cout << "Player 1 (X) Wins!" << endl;
+    return 1;
+  }
+  if(board[1][0] == 'X' && board[1][1] == 'X' && board[1][2] == 'X'){
+    cout << "Player 1 (X) Wins!" << endl;
+    return 1;
+  }if(board[2][0] == 'X' && board[2][1] == 'X' && board[2][2] == 'X'){
+    cout << "Player 1 (X) Wins!" << endl;
+    return 1;
+  }
+
+  //Diaginal - X
+  if(board[0][0] == 'X' && board[1][1] == 'X' && board[2][2] == 'X'){
+    cout << "Player 1 (X) Wins!" << endl;
+    return 1;
+  }
+  if(board[2][0] == 'X' && board[1][1] == 'X' && board[0][2] == 'X'){
+    cout << "Player 1 (X) Wins!" << endl;
+    return 1;
+  }
 
 
+  //Down - O
+  if(board[0][0] == 'O' && board[1][0] == 'O' && board[2][0] == 'O'){
+    cout << "Player 2 (O) Wins!" << endl;
+    return 2;
+  }
+  if(board[0][1] == 'O' && board[1][1] == 'O' && board[2][1] == 'O'){
+    cout << "Player 2 (O) Wins!" << endl;
+    return 2;
+  }
+  if(board[0][2] == 'O' && board[1][2] == 'O' && board[2][2] == 'O'){
+    cout << "Player 2 (O) Wins!" << endl;
+    return 2;
+  }
+
+  //Across - O
+  if(board[0][0] == 'O' && board[0][1] == 'O' && board[0][2] == 'O'){
+    cout << "Player 2 (O) Wins!" << endl;
+    return 2;
+  }
+  if(board[1][0] == 'O' && board[1][1] == 'O' && board[1][2] == 'O'){
+    cout << "Player 2 (O) Wins!" << endl;
+    return 2;
+  }if(board[2][0] == 'O' && board[2][1] == 'O' && board[2][2] == 'O'){
+    cout << "Player 2 (O) Wins!" << endl;
+    return 2;
+  }
+
+  //Diaginal - O
+  if(board[0][0] == 'O' && board[1][1] == 'O' && board[2][2] == 'O'){
+    cout << "Player 2 (O) Wins!" << endl;
+    return 2;
+  }
+  if(board[2][0] == 'O' && board[1][1] == 'O' && board[0][2] == 'O'){
+    cout << "Player 2 (O) Wins!" << endl;
+    return 2;
+  }
 }
 
 int getRand(){
@@ -118,167 +256,3 @@ int getRand(){
   var %= 9;
   return var;
 }
-
-/*
-int main(){
-  srand(time(0));
-  short input;
-  char board[3][3] = {{'e', 'e', 'e'}, {'e', 'e', 'e'}, {'e', 'e', 'e'}};
-  victor = 0;
-
-  while(matchActive != false){
-    boardOutput(board);
-    cout << "What move would you like to make?\n";
-    cin >> input;
-
-    moveAuthentication = false;
-    do{
-    if(input == 'e' && board[0] != 'x' && board[0] != 'o'){
-      board[0] = 1;
-      moveAuthentication = true;
-    }
-    else if(input == 2 && board[1] != 1 && board[1] != 2){
-      board[1] = 1;
-      moveAuthentication = true;
-    }
-    else if(input == 3 && board[2] != 1 && board[2] != 2){
-      board[2] = 1;
-      moveAuthentication = true;
-    }
-    else if(input == 4 && board[3] != 1 && board[3] != 2){
-      board[3] = 1;
-      moveAuthentication = true;
-    }
-    else if(input == 5 && board[4] != 1 && board[4] != 2){
-      board[4] = 1;
-      moveAuthentication = true;
-    }
-    else if(input == 6 && board[5] != 1 && board[5] != 2){
-      board[5] = 1;
-      moveAuthentication = true;
-    }
-    else if(input == 7 && board[6] != 1 && board[6] != 2){
-      board[6] = 1;
-      moveAuthentication = true;
-    }
-    else if(input == 8 && board[7] != 1 && board[7] != 2){
-      board[7] = 1;
-      moveAuthentication = true;
-    }
-    else if(input == 9 && board[8] != 1 && board[8] != 2){
-      board[8] = 1;
-      moveAuthentication = true;
-    }
-    else{
-      cout << "\nSomething went wrong, try again." << endl;
-      moveAuthentication = false;
-    }
-    }while(moveAuthentication != true);
-
-    input = rand();
-    input %= 9;
-
-    moveAuthentication = false;
-    do{
-    if(input == 1 && board[0] != 1 && board[0] != 2){
-      board[0] = 2;
-      moveAuthentication = true;
-    }
-    else if(input == 2 && board[1] != 1 && board[1] != 2){
-      board[1] = 2;
-      moveAuthentication = true;
-    }
-    else if(input == 3 && board[2] != 1 && board[2] != 2){
-      board[2] = 2;
-      moveAuthentication = true;
-    }
-    else if(input == 4 && board[3] != 1 && board[3] != 2){
-      board[3] = 2;
-      moveAuthentication = true;
-    }
-    else if(input == 5 && board[4] != 1 && board[4] != 2){
-      board[4] = 2;
-      moveAuthentication = true;
-    }
-    else if(input == 6 && board[5] != 1 && board[5] != 2){
-      board[5] = 2;
-      moveAuthentication = true;
-    }
-    else if(input == 7 && board[6] != 1 && board[6] != 2){
-      board[6] = 2;
-      moveAuthentication = true;
-    }
-    else if(input == 8 && board[7] != 1 && board[7] != 2){
-      board[7] = 2;
-      moveAuthentication = true;
-    }
-    else if(input == 9 && board[8] != 1 && board[8] != 2){
-      board[8] = 2;
-      moveAuthentication = true;
-    }
-    else{
-      moveAuthentication = false;
-    }
-    }while(moveAuthentication != true);
-
-    endGame(board);
-    if(victor == 1){
-      boardOutput(board);
-      cout << "\nPlayer One wins! Good game!";
-      matchActive = false;
-    }
-    if(victor == 2){
-      boardOutput(board);
-      cout << "\nPlayer Two wins! Good game!";
-      matchActive = false;
-    }
-  }
-  return 0;
-}
-
-int testBoard(short board[9]){
-  if(board[0][0] == 1 && board[1] == 1 && board[2] == 1)
-    main(1);
-  if(board[3] == 1 && board[4] == 1 && board[5] == 1)
-    main(1);
-  if(board[6] == 1 && board[7] == 1 && board[8] == 1)
-    main(1);
-  if(board[0] == 1 && board[3] == 1 && board[6] == 1)
-    main(1);
-  if(board[1] == 1 && board[4] == 1 && board[7] == 1)
-    main(1);
-  if(board[2] == 1 && board[5] == 1 && board[8] == 1)
-    main(1);
-  if(board[0] == 1 && board[4] == 1 && board[8] == 1)
-    main(1);
-  if(board[6] == 1 && board[4] == 1 && board[2] == 1)
-    main(1);
-
-  if(board[0] == 2 && board[1] == 2 && board[2] == 2)
-    main(2);
-  if(board[3] == 2 && board[4] == 2 && board[5] == 2)
-    main(2);
-  if(board[6] == 2 && board[7] == 2 && board[8] == 2)
-    main(2);
-  if(board[0] == 2 && board[3] == 2 && board[6] == 2)
-    main(2);
-  if(board[1] == 2 && board[4] == 2 && board[7] == 2)
-    main(2);
-  if(board[2] == 2 && board[5] == 2 && board[8] == 2)
-    main(2);
-  if(board[0] == 2 && board[4] == 2 && board[8] == 2)
-    main(2);
-  if(board[6] == 2 && board[4] == 2 && board[2] == 2)
-    main(2);
-}
-
-int boardOutput(short XnO[9]){
-  cout << "\n " << endl;
-  cout << XnO[0] << " | " << XnO[1] << " | " << XnO[2] << endl;
-  cout << "-----------" << endl;
-  cout << XnO[3] << " | " << XnO[4] << " | " << XnO[5] << endl;
-  cout << "-----------" << endl;
-  cout << XnO[6] << " | " << XnO[7] << " | " << XnO[8] << endl;
-  cout << "\n(Anything with a zero is an empty space)" << endl;
-}
-*/
