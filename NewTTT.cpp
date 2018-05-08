@@ -3,6 +3,7 @@
 #include<string>
 #include<cstdlib>
 #include<cmath>
+using namespace std;
 
 //* * * * * * * * * * * * * * * * *
 //    <array name>[row][column]   *
@@ -14,8 +15,6 @@
 //    o    [1]    4 5 6           *
 //    W    [2]    1 2 3           *
 //* * * * * * * * * * * * * * * * *
-
-using namespace std;
 
 int botOrNot();
 int rounds();
