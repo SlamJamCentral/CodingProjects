@@ -4,7 +4,29 @@
 #include<ctime>
 using namespace std;
 
-void cards(short number){//Display the card number
+void cardGraphic(short number);
+int howManyRounds();
+
+int main(){
+  srand(time(0));
+  int rounds = howManyRounds(); //how many rounds they want to play BJ
+
+  for(int x = 1; x <= rounds; x++){//repeats for the amount that you entered
+    int card = ((rand() % 10)+1);//assigns the card number to 1-13 !!ONLY IN THIS FOR LOOP!!
+
+    if(card == 1){
+      do{
+        cout << "You got an Ace! Do you want that to be a 1 or 11? " << endl;
+        cin >> card;
+      }while(card != 1 || card != 11);
+    }
+
+  }//End of the game loop (when the user folds or is over 21 - it loops while they still have rounds to play)
+
+  return 0;
+}
+
+void cardGraphic(short number){//Display the card number
   cout << "_________\n";
   cout << "|" << setw(9) << "|\n";
   cout << "|" << setw(9) << "|\n";
@@ -14,25 +36,11 @@ void cards(short number){//Display the card number
   cout << "---------\n";
 }
 
-
 int howManyRounds(){
   short rounds;
-
-  cout << "How many rounds of BlackJack do you want to play?" << endl;
+  cout << "How many rounds of BlackJack do you want to play? " << endl;
   cin >> rounds;
-
   return rounds;
-}
-
-
-int main(){
-  int rounds = howManyRounds(); //how many rounds they want to play BJ
-  srand(time(0));
-
-  for(int x = 1; x <= rounds; x++){//repeats for the amount that you entered
-    int card = (rand() % 14)
-  }
-  return 0;
 }
 
 /*
