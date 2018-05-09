@@ -1,5 +1,1 @@
-NewTTT
--make the bot % 10 instead of % 9
 
-BlackJack
--
