@@ -15,8 +15,9 @@ int main(){
   for(int x = 1; x <= rounds; x++){//repeats for the amount that you entered
     endG = 1;
     totCards = 0;
+    cout << "\n " << endl;
     while(endG != 0){
-      int card = (rand() % 14);
+      int card = ((rand() % 10)+1);
 
       if(card == 1){
         do{
@@ -63,8 +64,8 @@ int main(){
         endG = 0;
 
     }//Game buffer
+    cout << "You finished with a score of " << totCards << endl;
   }//For Loop End
-
   return 0;
 }//End of Main
 
