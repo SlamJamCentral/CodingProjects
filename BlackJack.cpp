@@ -85,28 +85,3 @@ int howManyRounds(){
   cin >> rounds;
   return rounds;
 }
-
-/*
-setup();
-cout << "\n";
-srand(time(0));
-short number, totalNum; //card number -- total number of the cards
-char addVar; //char for adding cards
-bool addC = false, gameFlag = false; //Bool to add a Card -- bool to end the game
-while(gameFlag == false){
-do{
-  number = rand();
-  number = number % 11;
-  ++number;
-}while(number <= 0 || number >= 12);
-if(number == 1){
-  cout << "You got an ace! Do you want that to be 1 or 11?";
-  cin >> number;
-}
-cards(number);
-cout << "\nDo you want to add another card? (y/n) ";
-cin >> addVar;
-switch(addVar){
-  case 'y':
-  case 'Y':
-*/
