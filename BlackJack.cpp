@@ -2,10 +2,12 @@
 #include<cstdlib>
 #include<iomanip>
 #include<ctime>
+#include<string>
 using namespace std;
 
 void displayCards(short number);
 int howManyRounds();
+int houseTurn();
 
 int main(){
   int rounds = howManyRounds(); //how many rounds they want to play BJ
@@ -70,12 +72,32 @@ int main(){
 }//End of Main
 
 void displayCards(short number){//Display the card number
+  srand(time(0));
+  short cardType = ((rand() % 4)+1);
+  string suite;
+  //µ = alt M
+  //ß = alt S
+  //π = alt P
+  //ø = alt O
+
+  switch(cardType){
+    case 1: suite = "µ";
+            break;
+    case 2: suite = "ß";
+            break;
+    case 3: suite = "π";
+            break;
+    case 4: suite = "ø";
+            break;
+    default: suite = "ß";
+  }
+
   cout << "_________\n";
-  cout << "|" << setw(9) << "|\n";
+  cout << "|" << setw(8) << suite << setw(1) << "|\n";
   cout << "|" << setw(9) << "|\n";
   cout << "|" << setw(4) << number << setw(5) << "|\n";
   cout << "|" << setw(9) << "|\n";
-  cout << "|" << setw(9) << "|\n";
+  cout << "|" << setw(1) << suite << setw(8) << "|\n";
   cout << "---------\n";
 }
 
@@ -84,4 +106,14 @@ int howManyRounds(){
   cout << "How many rounds of BlackJack do you want to play?" << endl;
   cin >> rounds;
   return rounds;
+}
+
+int houseTurn(){
+  int bTot = 0;
+  srand(time(0));
+
+  while()
+  int bCard = ((rand() % 10)+1);
+  tot += bCard;
+
 }
