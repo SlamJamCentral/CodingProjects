@@ -30,7 +30,7 @@ int main(){
   short x, o;
   int endG;
   char board[3][3] = {{'7', '8', '9'}, {'4', '5', '6'}, {'1', '2', '3'}};
-  int hmRounds = rounds();
+  int hmRounds = 1;
 
   if(botOrNot() == 1){              //If one is a bot
     for(x = 1; x <= hmRounds; x++){ //Repeats to create multiple rounds
@@ -125,26 +125,44 @@ int xInput(){
 }
 
 void xInputValidation(short xIn, char board[][3]){
-  if(xIn == 7)
-    board[0][0] = 'X';
-  if(xIn == 8)
-    board[0][1] = 'X';
-  if(xIn == 9)
-    board[0][2] = 'X';
+  if(xIn == 7){
+    if(board[0][0] != 'X' && board[0][0] != 'O')
+      board[0][0] = 'X';
+  }
+  if(xIn == 8){
+    if(board[0][1] != 'X' && board[0][1] != 'O')
+      board[0][1] = 'X';
+  }
+  if(xIn == 9){
+    if(board[0][2] != 'X' && board[0][2] != 'O')
+      board[0][2] = 'X';
+  }
 
-  if(xIn == 4)
-    board[1][0] = 'X';
-  if(xIn == 5)
-    board[1][1] = 'X';
-  if(xIn == 6)
-    board[1][2] = 'X';
+  if(xIn == 4){
+    if(board[1][0] != 'X' && board[1][0] != 'O')
+      board[1][0] = 'X';
+  }
+  if(xIn == 5){
+    if(board[1][1] != 'X' && board[1][1] != 'O')
+      board[1][1] = 'X';
+  }
+  if(xIn == 6){
+    if(board[1][2] != 'X' && board[1][2] != 'O')
+      board[1][2] = 'X';
+  }
 
-  if(xIn == 1)
-    board[2][0] = 'X';
-  if(xIn == 2)
-    board[2][1] = 'X';
-  if(xIn == 3)
+  if(xIn == 1){
+    if(board[2][0] != 'X' && board[2][0] != 'O')
+      board[2][0] = 'X';
+  }
+  if(xIn == 2){
+    if(board[2][1] != 'X' && board[2][1] != 'O')
+      board[2][1] = 'X';
+  }
+  if(xIn == 3){
+    if(board[2][2] != 'X' && board[2][2] != 'O')
     board[2][2] = 'X';
+  }
 }
 
 int oInput(){
@@ -157,26 +175,44 @@ int oInput(){
 }
 
 void oInputValidation(short oIn, char board[][3]){
-  if(oIn == 7)
-    board[0][0] = 'O';
-  if(oIn == 8)
-    board[0][1] = 'O';
-  if(oIn == 9)
-    board[0][2] = 'O';
+  if(oIn == 7){
+    if(board[0][0] != 'X' && board[0][0] != 'O')
+      board[0][0] = 'O';
+  }
+  if(oIn == 8){
+    if(board[0][1] != 'X' && board[0][1] != 'O')
+      board[0][1] = 'O';
+  }
+  if(oIn == 9){
+    if(board[0][2] != 'X' && board[0][2] != 'O')
+      board[0][2] = 'O';
+  }
 
-  if(oIn == 4)
-    board[1][0] = 'O';
-  if(oIn == 5)
-    board[1][1] = 'O';
-  if(oIn == 6)
-    board[1][2] = 'O';
+  if(oIn == 4){
+    if(board[1][0] != 'X' && board[1][0] != 'O')
+      board[1][0] = 'O';
+  }
+  if(oIn == 5){
+    if(board[1][1] != 'X' && board[1][1] != 'O')
+      board[1][1] = 'O';
+  }
+  if(oIn == 6){
+    if(board[1][2] != 'X' && board[1][2] != 'O')
+      board[1][2] = 'O';
+  }
 
-  if(oIn == 1)
-    board[2][0] = 'O';
-  if(oIn == 2)
-    board[2][1] = 'O';
-  if(oIn == 3)
-    board[2][2] = 'O';
+  if(oIn == 1){
+    if(board[2][0] != 'X' && board[2][0] != 'O')
+      board[2][0] = 'O';
+  }
+  if(oIn == 2){
+    if(board[2][1] != 'X' && board[2][1] != 'O')
+      board[2][1] = 'O';
+  }
+  if(oIn == 3){
+    if(board[2][2] != 'X' && board[2][2] != 'O')
+      board[2][2] = 'O';
+  }
 }
 
 int testBoard(char board[][3]){
@@ -254,11 +290,17 @@ int testBoard(char board[][3]){
     cout << "Player 2 (O) Wins!" << endl;
     return 2;
   }
+  return 0;
 }
 
 int getRand(){
   srand(time(0));
-  int var = rand();
-  var %= 10;
+  int var;
+
+  do{
+    var = rand();
+    var %= 10;
+  }while(var > 9 || var < 1);
+
   return var;
 }
