@@ -17,6 +17,7 @@ int main(){
   for(int x = 1; x <= rounds; x++){//repeats for the amount that you entered
     endG = 1;
     totCards = 0;
+    int houseVar = houseTurn();
     cout << "\n " << endl;
     while(endG != 0){
       int card = ((rand() % 10)+1);
@@ -67,6 +68,23 @@ int main(){
 
     }//Game buffer
     cout << "You finished with a score of " << totCards << endl;
+    cout << "The house finished with a score of " << houseVar << endl;
+
+    if(houseVar < 21){
+      if(totCards > houseVar)
+        cout << "You got a better score than the house, YOU WIN!" << endl;
+      else
+        cout << "You got a worse score than the house, you lose." << endl;
+    }
+    else{
+      if(houseVar > 21){
+        cout << "The house finished with a score over 21" << endl;
+        cout << "You win by default" << endl;
+      }
+    }
+
+    cout << "\n " << endl;
+
   }//For Loop End
   return 0;
 }//End of Main
@@ -110,10 +128,15 @@ int howManyRounds(){
 
 int houseTurn(){
   int bTot = 0;
+  bool gameA = true;
   srand(time(0));
 
-  while()
-  int bCard = ((rand() % 10)+1);
-  tot += bCard;
+  while(gameA != false){
+    int bCard = ((rand() % 10)+1);
+    bTot += bCard;
 
+    if(bTot > 18)
+      gameA = false;
+  }
+  return bTot;
 }
