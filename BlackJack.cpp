@@ -70,11 +70,15 @@ int main(){
     cout << "You finished with a score of " << totCards << endl;
     cout << "The house finished with a score of " << houseVar << endl;
 
-    if(houseVar < 21){
+    if(houseVar <= 21){
       if(totCards > houseVar)
         cout << "You got a better score than the house, YOU WIN!" << endl;
-      else
+
+      if(totCards < houseVar)
         cout << "You got a worse score than the house, you lose." << endl;
+
+      if(totCards == houseVar)
+        cout << "You and the house got the same score, no one wins";
     }
     else{
       if(houseVar > 21){
@@ -135,8 +139,12 @@ int houseTurn(){
     int bCard = ((rand() % 10)+1);
     bTot += bCard;
 
-    if(bTot > 18)
+    if(bTot > 17)
       gameA = false;
   }
+
+  if(bTot > 21)
+    bTot -= 2;
+
   return bTot;
 }
