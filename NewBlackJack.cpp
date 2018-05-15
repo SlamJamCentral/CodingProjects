@@ -74,17 +74,42 @@ void getCard(int & total){
   displayCards(card);
 }
 
-int testCards(int & total){
-  int end;
+short testCards(int & total){
+  short end = 0;
   if(total > 21){
     cout << "You exceded the number 21. You lose!" << endl;
-    end = 2;
+    end = 1;
   }
 
   if(total == 21){
     cout << "Congrats! You got a perfect score!" << endl;
-    end = 3;
+    end = 1;
   }
+  return end;
+}
+
+short endOrNot(int total){
+  char input;
+  bool inputV = false;
+  short end;
+
+  do{
+    cout << "Your card(s) amount to " << total << ". Do you want to [A]dd or [S]top " << endl;
+    cin >> input;
+
+    switch(input){
+      case 'a':
+      case 'A': inputV = true;
+                end = 0;
+                break;
+      case 's':
+      case 'S': inputV = true;
+                end = 1;
+                break;
+      default: inputV = false;
+    }
+  }while(inputV == false);
+
   return end;
 }
 
@@ -94,8 +119,14 @@ int main(){
   short endG = 1, totCards = 0;
 
   for(int x = 1; x <= rounds; x++){
-    getCard(totCards);
-    testCards(totCards);
+    while(endG != 1){//Player's turn
+      getCard(totCards);
+      endG = testCards(totCards);
+      if(endG == 1)
+        break;
+      endG = endOrNot(totCards);
+
+    }
   }
 }
 /*
