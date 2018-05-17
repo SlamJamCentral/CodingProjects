@@ -5,24 +5,31 @@
 #include<ctime>
 using namespace std;
 
-int howManyRounds(){
-  int rounds;
+int howDoYou(){
+  int oneOrTwo;
 
   do{
-    cout << "This takes a long time. Start at your own risk." << endl;
-    cout << "How many numbers would you like to generate? " << endl;
-    cin >> rounds;
-  }while(rounds < 1 || rounds > 5);
+    cout << "There are two ways to find a prime number in this program.\n"
+         << "[1] Find a random number and see if it's prime (Will cut off after 5 minutes)\n"
+         << "[2] Get a random number and then add something to it until it's prime\n";
+    cin >> oneOrTwo;
+  }while(oneOrTwo != 1 && oneOrTwo != 2);
 
-  return rounds;
+  return oneOrTwo;
 }
 
-int numberGenerator(){
+int numberGenerator(int startTime){
   int number;
   bool prime;
   srand(time(0));
 
   do{
+    if((time(0) - startTime) >= 300){
+      cout << "In order to save your RAM, the program has ended after 5 minutes. :/" << endl;
+      number = 1;
+      break;
+    }
+
     number = rand();
     cout << "Testing: " << number << endl;
 
@@ -48,36 +55,24 @@ int numberGenerator(){
 }
 
 int main(){
-  int numbers, startTime, endTime, totTime;
-  int repeats = howManyRounds();
+  int numbers, startTime, endTime, totTime, whichWay;
+
+  whichWay = howDoYou();
 
   startTime = time(0);
   cout << "Starting time: " << startTime << endl;
 
-  for(int x = 1; x <= repeats; x++){
-    numbers = numberGenerator();
-    cout << "Prime Number: " << numbers << endl;
-  }
+  if(whichWay == 1)
+    numbers = numberGenerator(startTime);
+  if(whichWay == 2){
+    //numbers =
+//2 to the power of X - 1
+
+  cout << "Prime Number: " << numbers << endl;
 
   endTime = time(0);
-  cout << "Ending time: " << endTime << endl;
-
   totTime = endTime - startTime;
-  cout << "Total elapsed time: " << totTime << endl;
+  cout << "Total elapsed time: " << totTime << " seconds" << endl;
 
   return 0;
 }
-
-/*
-int number, howMany;
-
-cout << "How many numbers would you like to generate? " << endl;
-cin >> howMany;
-
-for(int x = 0; x <= howMany; x++){
-  number = rand();
-  cout << number << endl;
-}
-15265050101
-1526505012
-*/
