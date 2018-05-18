@@ -54,6 +54,29 @@ int numberGenerator(int startTime){
   return number;
 }
 
+void oneToInfinty(){
+  int endN, num[8] = {2, 3, 4, 5, 6, 7, 8, 9};
+  bool prime = false;
+
+
+  cout << "What number do you want to stop at? (-1 for infinity) " << endl;
+  cin >> endN;
+
+
+  for(int x = 1; x <= endN; x++){
+    prime = true;
+    for(int y = 0; y < 8; y++){
+      if((x % num[y]) == 0){
+        prime = false;
+        break;
+      }
+    }
+    if(prime == true)
+      cout << x << endl;
+  }
+
+}
+
 int main(){
   int numbers, startTime, endTime, totTime, whichWay;
 
@@ -62,17 +85,17 @@ int main(){
   startTime = time(0);
   cout << "Starting time: " << startTime << endl;
 
-  if(whichWay == 1)
+  if(whichWay == 1){
     numbers = numberGenerator(startTime);
+    cout << "Prime Number: " << numbers << endl;
+  }
   if(whichWay == 2){
-    //numbers =
-//2 to the power of X - 1
-
-  cout << "Prime Number: " << numbers << endl;
+    oneToInfinty();
 
   endTime = time(0);
   totTime = endTime - startTime;
   cout << "Total elapsed time: " << totTime << " seconds" << endl;
 
   return 0;
+}
 }
