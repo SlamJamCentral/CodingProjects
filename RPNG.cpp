@@ -11,7 +11,7 @@ int howDoYou(){
   do{
     cout << "There are two ways to find a prime number in this program.\n"
          << "[1] Find a random number and see if it's prime (Will cut off after 5 minutes)\n"
-         << "[2] Get a random number and then add something to it until it's prime\n";
+         << "[2] Start at one, start adding, and display all the prime numbers on the way\n";
     cin >> oneOrTwo;
   }while(oneOrTwo != 1 && oneOrTwo != 2);
 
@@ -19,54 +19,44 @@ int howDoYou(){
 }
 
 int numberGenerator(int startTime){
-  int number;
-  bool prime;
+  int number, prime;
   srand(time(0));
 
+  number = rand();
+
   do{
-    if((time(0) - startTime) >= 300){
-      cout << "In order to save your RAM, the program has ended after 5 minutes. :/" << endl;
-      number = 1;
-      break;
+    cout << "Testing: " << number;
+
+    prime = 0;
+    for(long int x = 2; x < number; x++){
+      if((number % x) == 0){
+        cout << " - Failed" << endl;
+        prime++;
+      }
     }
-
-    number = rand();
-    cout << "Testing: " << number << endl;
-
-    if((number % 2) == 0)
-      prime = false;
-    if((number % 3) == 0)
-      prime = false;
-    if((number % 4) == 0)
-      prime = false;
-    if((number % 5) == 0)
-      prime = false;
-    if((number % 6) == 0)
-      prime = false;
-    if((number % 7) == 0)
-      prime = false;
-    if((number % 8) == 0)
-      prime = false;
-    if((number % 9) == 0)
-      prime = false;
-  }while(prime == false);
+    if(prime == 0)
+      cout << " - Passed" << endl;
+    if(prime != 0)
+      number++;
+  }while(prime != 0);
 
   return number;
 }
 
 void oneToInfinty(){
-  int endN, num[8] = {2, 3, 4, 5, 6, 7, 8, 9};
+  long int endN;
   bool prime = false;
 
+  do{
+    cout << "What number do you want to stop at? " << endl;
+    cin >> endN;
+  }while(endN < 1);
 
-  cout << "What number do you want to stop at? (-1 for infinity) " << endl;
-  cin >> endN;
-
-
-  for(int x = 1; x <= endN; x++){
+  cout << "1" << endl;
+  for(int x = 2; x <= endN; x++){
     prime = true;
-    for(int y = 0; y < 8; y++){
-      if((x % num[y]) == 0){
+    for(int y = 1; y < x; y++){
+      if((x % y) == 0){
         prime = false;
         break;
       }
@@ -74,7 +64,6 @@ void oneToInfinty(){
     if(prime == true)
       cout << x << endl;
   }
-
 }
 
 int main(){
