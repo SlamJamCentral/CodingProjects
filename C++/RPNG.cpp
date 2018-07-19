@@ -3,7 +3,7 @@
 #include<cstdlib>
 #include<iomanip>
 #include<ctime>
-using namespace std;
+using namespace std; 
 
 int howDoYou(){
   int oneOrTwo;

@@ -3,7 +3,7 @@
 #include<string>
 #include<cstdlib>
 #include<cmath>
-using namespace std;
+using namespace std; 
 
 //* * * * * * * * * * * * * * * * *
 //    <array name>[row][column]   *

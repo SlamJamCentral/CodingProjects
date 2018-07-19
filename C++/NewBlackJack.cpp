@@ -3,7 +3,7 @@
 #include<iomanip>
 #include<ctime>
 #include<string>
-using namespace std;
+using namespace std; 
 
 int howManyRounds(){
   short rounds;

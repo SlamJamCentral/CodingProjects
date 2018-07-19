@@ -1,6 +1,6 @@
 #include<iostream>
 #include<string>
-using namespace std;
+using namespace std; 
 
 //* * * * * * * * * * * * * * * * *
 //   <array name>[row][column]    *
