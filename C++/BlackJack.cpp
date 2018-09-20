@@ -3,7 +3,7 @@
 #include<iomanip>
 #include<ctime>
 #include<string>
-using namespace std; 
+using namespace std;
 
 void displayCards(short number);
 int howManyRounds();
